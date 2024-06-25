@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class CropFieldDto {
     private String cropVariety;
     private String cropPlant;
     private LocalDate cropPlantingDate;
-    private LocalDateTime irrigationStartTime;
+    private LocalTime irrigationStartTime;
     private Long numPlants;
     private double idealTemperature;
     private double idealHumidity;

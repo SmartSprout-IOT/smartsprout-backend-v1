@@ -12,7 +12,10 @@ import com.upc.smartsproutbackend.service.IrrigationRecordService;
 import com.upc.smartsproutbackend.service.IrrigationService;
 import org.springframework.stereotype.Service;
 
-import java.time.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 @Service
@@ -44,9 +47,8 @@ public class IrrigationServiceImpl implements IrrigationService {
             }
         }
         assert cropField != null;
-        ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("America/Lima"));
-        LocalDateTime localDateTime = zonedDateTime.toLocalDateTime();
-        cropField.setIrrigationStartTime(localDateTime);
+        LocalTime limaTime = ZonedDateTime.now(ZoneId.of("America/Lima")).toLocalTime();
+        cropField.setIrrigationStartTime(limaTime);
         cropFieldRepository.save(cropField);
     }
 
@@ -64,17 +66,14 @@ public class IrrigationServiceImpl implements IrrigationService {
             if (irrigationSuggestion != null) {
                 irrigationSuggestion.setIrrigation(false);
             }
-            ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("America/Lima"));
-            LocalDateTime localDateTime = zonedDateTime.toLocalDateTime();
-
-
-            cropField.setIrrigationEndTime(localDateTime);
+            LocalTime limaTime = ZonedDateTime.now(ZoneId.of("America/Lima")).toLocalTime();
+            cropField.setIrrigationEndTime(limaTime);
             cropFieldRepository.save(cropField);
             IrrigationRecord irrigationRecord = IrrigationRecord.builder()
                     .cropField(cropField)
                     .irrigationDate(LocalDate.now())
                     .startTime(cropField.getIrrigationStartTime())
-                    .endTime(localDateTime)
+                    .endTime(limaTime)
                     .duration((int) cropField.getIrrigationStartTime().until(cropField.getIrrigationEndTime(), ChronoUnit.MINUTES))
                     .build();
             cropField.setIrrigationStartTime(null);

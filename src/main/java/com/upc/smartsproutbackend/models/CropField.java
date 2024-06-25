@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -57,9 +56,9 @@ public class CropField {
     @Column(name = "irrigation_duration")
     private Long irrigationDuration;
     @Column(name = "irrigation_starttime")
-    private LocalDateTime irrigationStartTime;
+    private LocalTime irrigationStartTime;
     @Column(name = "irrigation_endtime")
-    private LocalDateTime irrigationEndTime;
+    private LocalTime irrigationEndTime;
     @Column(name = "irrigation_completed")
     private boolean irrigationCompleted;
 
